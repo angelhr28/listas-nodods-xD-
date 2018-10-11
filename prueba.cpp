@@ -67,22 +67,28 @@ void menor(Tnodo cabeza){
 
 ///////////busqueda
 void busqueda(Tnodo cabeza){
+	int n;
 	int bus;
-	cout<<"indique el numero a buscar"<<endl;
+	cout<<"indique el numero a buscar:	"<<endl;
 	cin>>bus;
 	while(cabeza!=NULL){
 		if(cabeza->dato==bus){
-			cout<<"el numero "<< bus << "si existe en la lista"<<endl;
+			n++;
+			cout<<"el numero	"<< bus << "	si existe en la lista en la posicion 	"<<n<<endl;
+		}
+		else
+		{
+			n++;
 		}
 		cabeza=cabeza->sig;
 	}
-	
+
 	
 }
 /////////////eliminar
 void eliminar(Tnodo &cabeza){
 	int borra;
-	cout<<"indique el numero a borrar";
+	cout<<"indique el numero a borrar:	";
 	cin>>borra;
 
 
@@ -121,6 +127,46 @@ void repoio(Tnodo &cabeza,int num ){
 	delete aux;
 		
 }
+///////////////////////////////////
+void eliminar_varios (Tnodo cabeza, int numero_eliminado) {
+
+	Tnodo nodo_auxiliar = new nodo;
+
+	nodo_auxiliar = NULL;
+
+	if (cabeza == NULL) {
+		cout << "its empty";
+	} else{
+		while (cabeza != NULL) {
+			
+			//cout << "hola esto funciona ? "<< endl;
+			cout << cabeza->dato<<endl;
+			if (cabeza->dato == numero_eliminado ) {
+				// en caso de que sea el ultimo
+				if (cabeza->sig == NULL) {
+					nodo_auxiliar->sig = NULL;
+					return ;
+				}
+
+				if (nodo_auxiliar != NULL) {
+					nodo_auxiliar->sig = cabeza->sig;
+					//cabeza = cabeza->sgte;
+					cabeza = cabeza->sig;
+				}
+
+				//if ()
+				// else {
+				//	cabeza = cabeza->sgte;
+				//}
+			}
+			nodo_auxiliar = cabeza;
+			cabeza = cabeza->sig;
+		}
+	}
+}
+
+
+
 /////////////////////////////////////////
 void menu(){
 	cout<<"1. INGRESO ADELANTE"<<endl;
@@ -171,13 +217,20 @@ int main(){
 				break;
 			case 7: 
 				int borrar;
-				cout<<"ELIMINACION DE NUMEROS MULTIPLES";
+				/*cout<<"ELIMINACION DE NUMEROS MULTIPLES";
 				cout<<"que numero desea eliminar";
 				cin>>borrar;
 				
 				while(cabeza!=NULL){
 					repoio(cabeza,borrar);
-				}
+				}*/
+					int numero_eliminado = 0;
+				cout<<"ELIMINACION DE VARIOS NUMEROS"<<endl;
+				cout << "ingrese el numero que quieres eliminar" <<endl;
+				cin >> numero_eliminado;
+				eliminar_varios(cabeza, numero_eliminado);	
+				
+				
 		}
 		system("pause");
 		system("cls");
@@ -186,5 +239,5 @@ int main(){
 		cout<<endl;
 		cout<<"----------------------------------"<<endl;
 	}
-	return 0;
+	return 0; 
 }
