@@ -1,16 +1,21 @@
-
-#include <iostream>
-#include <conio.h>
+ #include <iostream>
+//#include <conio.h>
 using namespace std;
- //creamos nuestro nodo
+
+//creamos nuestro nodo
+
 struct nodo{
-       int Dato;        
-       struct nodo *sgte;
+    int Dato;        
+	struct nodo *sgte;
 };
+
+
 
 //Con la palabra typedef definimos un alias llamado "tnodo" que es de tipo "struct nodo *" 
 //Creamos un alias para tipo de dato puntero a nodo:
 typedef struct nodo *Tnodo;
+
+
 //insertamos el una
 void insertarInicio(Tnodo &cabeza, int valor)
 {   //Definimos un puntero nuevoNodo a tipo nodo
@@ -40,31 +45,32 @@ void insertarFinal(Tnodo &cabeza, int valor)
             temp = temp->sgte;
         }
         temp->sgte = nuevoNodo;
-    }
- 
+    } 
 }
+
+
  //////////////////impresion de listas///////////////
 void reportarLista(Tnodo cabeza)
 {
      //int i = 0;
 	 cout<<endl;
 	 
-     while(cabeza != NULL)
-     {
+    while(cabeza != NULL)
+    {
           cout <<cabeza->Dato <<" ";////////////////////////////////////////////////////////////////////////////////
           cabeza = cabeza->sgte;
           //i++;
-     }
+    }
     // cout<<endl<<i;
 }
 
-///////////maximo valor de una lista //////////////
 
+///////////maximo valor de una lista //////////////
 void maximo(Tnodo cabeza){
 	int mayor = 0;
 	
-     while(cabeza != NULL)
-     {
+    while(cabeza != NULL)
+    {
 		if(cabeza->Dato  > mayor){
 			mayor = cabeza->Dato;
 //			
@@ -72,17 +78,17 @@ void maximo(Tnodo cabeza){
          
          cabeza = cabeza->sgte;
      
-     }
+    }
 	cout<<"el numero maximo es: "<<mayor<<endl;
-	
-	
 }
+
+
 //////////////////////minimo valor////////////////////////
 void minimo(Tnodo cabeza){
 	int minimo = 999999999;
 	
-     while(cabeza != NULL)
-     {
+    while(cabeza != NULL)
+    {
 		if(cabeza->Dato < minimo){
 			minimo = cabeza->Dato;
 //			
@@ -90,11 +96,10 @@ void minimo(Tnodo cabeza){
          
          cabeza = cabeza->sgte;
      
-     }
+    }
 	cout<<"el numero maximo es: "<<minimo<<endl;
-	
-	
 }
+
 
 /////////////////////buscar/////////////////////
 void busqueda(Tnodo cabeza ){
@@ -102,15 +107,14 @@ void busqueda(Tnodo cabeza ){
 	cout<<"introdusca el numero a buscar";
 	cin>>num;
 	while(cabeza != NULL)
-     {
+    {
 		if(cabeza->Dato == num ){
-			cout<< "el numero esta dentro de la lista";
-//			
+			cout<< "el numero esta dentro de la lista";		
 		}
         
          cabeza = cabeza->sgte;
      
-     }
+    }
 }
 	
 	
@@ -120,30 +124,31 @@ void eliminar(Tnodo &cabeza){
 	cout<<"introdusca el numero a eliminar";
 	cin>>num;
 
-if(cabeza!=NULL){
+	if(cabeza!=NULL){
 
-	Tnodo aux_borrar;
-	Tnodo anterior=NULL;
-	aux_borrar = cabeza;
-	
-	while((aux_borrar != NULL)&&(aux_borrar->Dato !=num)){
-		anterior = aux_borrar;
-		aux_borrar = aux_borrar->sgte;	
+		Tnodo aux_borrar;
+		Tnodo anterior=NULL;
+		aux_borrar = cabeza;
+		
+		while( (aux_borrar != NULL) && (aux_borrar->Dato !=num) ){
+			anterior = aux_borrar;
+			aux_borrar = aux_borrar->sgte;	
 
-	}
-	if(aux_borrar == NULL){
-		cout<<"el elemento no existe: ";
-	}
-	else if(anterior==NULL){
-		cabeza=cabeza->sgte;
-		delete aux_borrar;
-	}
-	else{
-		anterior->sgte=aux_borrar->sgte;
-		delete aux_borrar;
+		}
+		if(aux_borrar == NULL){
+			cout<<"el elemento no existe: ";
+		}
+		else if(anterior==NULL){
+			cabeza=cabeza->sgte;
+			delete aux_borrar;
+		}
+		else{
+			anterior->sgte=aux_borrar->sgte;
+			delete aux_borrar;
+		}
 	}
 }
-}
+
 ///////////////////eliminar repoio xD //////////////
 void eliminar_repoio(Tnodo &cabeza,int &info){
 	int num;
@@ -158,9 +163,56 @@ void eliminar_repoio(Tnodo &cabeza,int &info){
 	delete aux;
 	}
 	
-	
-	
 }
+
+
+/////////////////  eliminar varios  /////////////////
+void eliminar_varios (Tnodo cabeza, int numero_eliminado) {
+
+	Tnodo nodo_auxiliar = new nodo;
+
+	nodo_auxiliar = NULL;
+
+	if (cabeza == NULL) {
+		cout << "its empty";
+	} else{
+		while (cabeza != NULL) {
+			
+			cout << "hola esto funciona ? "<< endl;
+			cout << cabeza->Dato<<endl;
+			if (cabeza->Dato == numero_eliminado ) {
+				// en caso de que sea el ultimo
+				if (cabeza->sgte == NULL) {
+					nodo_auxiliar->sgte = NULL;
+					return ;
+				}
+
+				if (nodo_auxiliar != NULL) {
+					nodo_auxiliar->sgte = cabeza->sgte;
+					//cabeza = cabeza->sgte;
+					cabeza = cabeza->sgte;
+				}
+
+				//if ()
+				// else {
+				//	cabeza = cabeza->sgte;
+				//}
+			}
+			nodo_auxiliar = cabeza;
+			cabeza = cabeza->sgte;
+		}
+	}
+}
+
+
+void mostrar (Tnodo cabeza) {
+	while (cabeza != NULL) {
+		cout << cabeza->Dato;
+
+		cabeza = cabeza->sgte;
+	}
+}
+
 ////////////////////////////////
 void menu()
 {
@@ -181,13 +233,9 @@ int main()
     int opcion;    
     int info;  
     int pos,a=1;    
+
  
- 
- 
- 
-  
- 
-   while(a!=0){
+	while(a!=0){
     	menu();  
 			
 			cin>> opcion;
@@ -197,57 +245,67 @@ int main()
         
 			case 1:
  
-                 cout<< "\n NUMERO A INSERTAR: ";
-				 cin>> info;
-                 insertarInicio(cabeza, info);
-                 
+                cout<< "\n NUMERO A INSERTAR: ";
+				cin>> info;
+                insertarInicio(cabeza, info);     
             break;
  
  
             case 2:
  
-                 cout<< "\n NUMERO A INSERTAR FINAL: "; 
-				 cin>> info;
-                 insertarFinal(cabeza, info );
+                cout<< "\n NUMERO A INSERTAR FINAL: "; 
+				cin>> info;
+                insertarFinal(cabeza, info );
                  
-              break;
+            break;
               
-			  case 3:
-			  		cout<<"NUMERO MAYOR: "<<endl;
-			  		maximo(cabeza);
-				  	break;   
-              case 4:
-			   		cout<<"NUMERO MAYOR: "<<endl;
-			  		minimo(cabeza);   
-                	break;
-             case 5:
-    				cout<<"BUSCAR UN NUMERO:"<<endl;
-    				busqueda(cabeza);
-    				break;
-			  case 6: 
-			  		cout<<"ELIMINACION DE NUMERO"<<endl;
-			  		eliminar(cabeza);
-			  		break;
+			case 3:
+			  	cout<<"NUMERO MAYOR: "<<endl;
+			  	maximo(cabeza);
+			break;   
+            
+            case 4:
+				//case 8:
+				cout << "mostrar todo";
+				mostrar(cabeza);
+			//break;
+			//   	cout<<"NUMERO MAYOR: "<<endl;
+			//  	minimo(cabeza);   
+            break;
+            
+            case 5:
+    			cout<<"BUSCAR UN NUMERO:"<<endl;
+    			busqueda(cabeza);
+    		break;
+			
+			case 6: 
+			  	cout<<"ELIMINACION DE NUMERO"<<endl;
+			  	eliminar(cabeza);
+			break;
+            
             case 7:
-					cout<<"ELIMINACION DE VARIOS NUMEROS"<<endl;
+				int numero_eliminado = 0;
+				cout<<"ELIMINACION DE VARIOS NUMEROS"<<endl;
+				cout << "ingrese el numero que quieres eliminar" <<endl;
+				cin >> numero_eliminado;
+				eliminar_varios(cabeza, numero_eliminado);	
+				// while(cabeza!=NULL){
 						
-					while(cabeza!=NULL){
-						
-					eliminar_repoio(cabeza,info);
-					cout<<info<<"->"<<endl;	
-					}
-                    break;
-					}
+				// eliminar_repoio(cabeza,info);
+				// cout<<info<<"->"<<endl;	
+				// }
+            break;
+
+
+	
+		}
                     
 			
         cout<<endl<<endl;
- system("pause");
- system("cls");
- cout<<"-----------------LOS ELEMENTOS DE LA LISTA ----------------";
- reportarLista(cabeza);
- cout<<endl<<endl;
- cout<<"-------------------------------------------------------------------";
- 
-}
-
+ 		//system("cls");
+		cout<<"-----------------LOS ELEMENTOS DE LA LISTA ----------------";
+		reportarLista(cabeza);
+		cout<<endl<<endl;
+		cout<<"-------------------------------------------------------------------";	 
+	}	
 }
